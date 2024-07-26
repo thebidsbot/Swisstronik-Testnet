@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+
+pragma solidity ^0.8.17;
 
 import "./IPERC20.sol";
 import "./IPERC20Metadata.sol";
@@ -7,8 +8,11 @@ import "@openzeppelin/contracts/utils/Context.sol";
 
 contract PERC20 is Context, IPERC20, IERC20Metadata {
     mapping(address => uint256) internal _balances;
+
     mapping(address => mapping(address => uint256)) internal _allowances;
+
     uint256 private _totalSupply;
+
     string private _name;
     string private _symbol;
 
@@ -51,13 +55,19 @@ contract PERC20 is Context, IPERC20, IERC20Metadata {
         return true;
     }
 
-    function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) public virtual override returns (bool) {
         _transfer(sender, recipient, amount);
+
         uint256 currentAllowance = _allowances[sender][_msgSender()];
         require(currentAllowance >= amount, "PERC20: transfer amount exceeds allowance");
         unchecked {
             _approve(sender, _msgSender(), currentAllowance - amount);
         }
+
         return true;
     }
 
@@ -72,10 +82,15 @@ contract PERC20 is Context, IPERC20, IERC20Metadata {
         unchecked {
             _approve(_msgSender(), spender, currentAllowance - subtractedValue);
         }
+
         return true;
     }
 
-    function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+    function _transfer(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) internal virtual {
         require(sender != address(0), "PERC20: transfer from the zero address");
         require(recipient != address(0), "PERC20: transfer to the zero address");
 
@@ -117,15 +132,26 @@ contract PERC20 is Context, IPERC20, IERC20Metadata {
         _afterTokenTransfer(account, address(0), amount);
     }
 
-    function _approve(address owner, address spender, uint256 amount) internal virtual {
+    function _approve(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
         require(owner != address(0), "PERC20: approve from the zero address");
         require(spender != address(0), "PERC20: approve to the zero address");
 
         _allowances[owner][spender] = amount;
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual {}
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
 
-    function _afterTokenTransfer(address from, address to, uint256 amount) internal virtual {}
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
 }
-
