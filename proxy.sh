@@ -192,4 +192,4 @@ echo "getMessage.js script created."
 echo "Running getMessage.js..."
 npx hardhat run scripts/getMessage.js --network swisstronik
 echo "Message retrieved."
-echo "Done! Welldone Bids
+echo "Done! Welldone Bids"
