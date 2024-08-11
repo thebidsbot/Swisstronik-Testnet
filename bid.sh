@@ -115,7 +115,7 @@ async function main() {
   const contractFactory = await hre.ethers.getContractFactory("Swisstronik");
   const contract = contractFactory.attach(contractAddress);
   const functionName = "setMessage";
-  const messageToSet = "Hello Swisstronik from Happy Cuan Airdrop!!";
+  const messageToSet = "Hello Swisstronik";
   const setMessageTx = await sendShieldedTransaction(signer, contractAddress, contract.interface.encodeFunctionData(functionName, [messageToSet]), 0);
   await setMessageTx.wait();
   console.log("Transaction Receipt: ", setMessageTx);
