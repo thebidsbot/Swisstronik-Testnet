@@ -77,7 +77,7 @@ cat <<EOL > scripts/deploy.js
 const hre = require("hardhat");
 
 async function main() {
-  const contract = await hre.ethers.deployContract("Swisstronik", ["Hello Swisstronik from Happy Cuan Airdrop!!"]);
+  const contract = await hre.ethers.deployContract("Swisstronik", ["Hello Swisstronik from TheBID!"]);
   await contract.waitForDeployment();
   console.log(\`Swisstronik contract deployed to \${contract.target}\`);
 }
